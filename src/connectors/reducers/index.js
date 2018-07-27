@@ -1,3 +1,5 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import params from './params';
+
+export default combineReducers({ params });
