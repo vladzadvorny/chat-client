@@ -13,6 +13,18 @@
   box-shadow: $shadow;
 
   .container {
+    justify-content: center;
     // background-color: lightgreen;
+    .logo {
+      background-image: url('../../public/img/logo.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      width: 220px;
+      height: $headerHeight;
+      opacity: 0.9;
+      margin-top: 1px;
+      cursor: pointer;
+    }
   }
 }

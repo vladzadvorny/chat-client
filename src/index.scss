@@ -17,7 +17,7 @@ body {
   flex-direction: column;
   flex: auto;
   color: $blackColor;
-  background-color: lighten($primaryColor, 47);
+  background-color: lighten($blackColor, 77);
   padding-top: $headerHeight + $freeSpace;
 }
 

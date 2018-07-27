@@ -17,6 +17,15 @@
     padding-bottom: $freeSpace;
     align-items: center;
     justify-content: center;
+    background-image: url('../../public/img/bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    &::before {
+      opacity: 0.2;
+    }
 
     .enter-box {
       // background-color: $whiteColor;
