@@ -35,7 +35,7 @@
       align-items: center;
 
       .enter-form {
-        background-color: $whiteColor;
+        background-color: rgba($whiteColor, $whiteOpacity);
         // height: 500px;
         align-self: stretch;
         display: flex;
@@ -67,7 +67,7 @@
 
               li {
                 border: 1px solid lighten($blackColor, 70);
-                background-color: lighten($blackColor, 79);
+                background-color: white;
                 margin-bottom: 3px;
                 padding: 4px 9px;
                 cursor: pointer;
