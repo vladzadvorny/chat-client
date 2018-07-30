@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-static';
+import { withRouter, Head, withRouteData, Link } from 'react-static';
 
 import './Home.scss';
 import {
@@ -18,75 +18,79 @@ class Home extends Component {
       changeSex,
       changeAge,
       changeFindSex,
-      changeFindAge
+      changeFindAge,
+      posts
     } = this.props;
     /* eslint-enable */
 
     return (
       <div className="home">
+        <Head>
+          <title>Анонимный чат</title>
+        </Head>
         <div className="block1">
           <div className="enter-box">
             <div className="enter-form">
               <div className="column">
                 {/* sex */}
                 <div className="item">
-                  <h3>Who are you?</h3>
+                  <h3>Кто ты?</h3>
                   <ul>
                     <li
                       role="presentation"
                       className={sex === 'male' ? 'active' : ''}
                       onClick={() => changeSex('male')}
                     >
-                      I'm a boy
+                      Парень
                     </li>
                     <li
                       role="presentation"
                       className={sex === 'female' ? 'active' : ''}
                       onClick={() => changeSex('female')}
                     >
-                      I'm a girl
+                      Девушка
                     </li>
                   </ul>
                 </div>
 
                 {/* age */}
                 <div className="item">
-                  <h3>How old are you?</h3>
+                  <h3>Сколько тебе лет?</h3>
                   <ul>
                     <li
                       role="presentation"
-                      className={age === '<17' ? 'active' : ''}
-                      onClick={() => changeAge('<17')}
+                      className={age === '<18' ? 'active' : ''}
+                      onClick={() => changeAge('<18')}
                     >
-                      Less than 17 years old
+                      Менее 18
                     </li>
                     <li
                       role="presentation"
                       className={age === '18-21' ? 'active' : ''}
                       onClick={() => changeAge('18-21')}
                     >
-                      From 18 to 21 years old
+                      От 18 до 21
                     </li>
                     <li
                       role="presentation"
                       className={age === '22-25' ? 'active' : ''}
                       onClick={() => changeAge('22-25')}
                     >
-                      From 22 to 25 years old
+                      От 22 до 25
                     </li>
                     <li
                       role="presentation"
                       className={age === '26-35' ? 'active' : ''}
                       onClick={() => changeAge('26-35')}
                     >
-                      From 26 to 35 years old
+                      От 26 до 35
                     </li>
                     <li
                       role="presentation"
-                      className={age === '>36' ? 'active' : ''}
-                      onClick={() => changeAge('>36')}
+                      className={age === '=>36' ? 'active' : ''}
+                      onClick={() => changeAge('=>36')}
                     >
-                      Оver 36 years old
+                      36 и старше
                     </li>
                   </ul>
                 </div>
@@ -94,42 +98,42 @@ class Home extends Component {
               <div className="column">
                 {/* findSex */}
                 <div className="item">
-                  <h3>Who do you want to talk to?</h3>
+                  <h3>С кем ты хочешь поговорить?</h3>
                   <ul>
                     <li
                       role="presentation"
                       className={findSex === 'male' ? 'active' : ''}
                       onClick={() => changeFindSex('male')}
                     >
-                      With a boy
+                      С парнем
                     </li>
                     <li
                       role="presentation"
                       className={findSex === 'female' ? 'active' : ''}
                       onClick={() => changeFindSex('female')}
                     >
-                      With a girl
+                      С девушкой
                     </li>
                     <li
                       role="presentation"
                       className={findSex === 'unknown' ? 'active' : ''}
                       onClick={() => changeFindSex('unknown')}
                     >
-                      No difference
+                      Без разницы
                     </li>
                   </ul>
                 </div>
 
                 {/* findAge */}
                 <div className="item">
-                  <h3>How old?</h3>
+                  <h3>Какого возраста?</h3>
                   <ul>
                     <li
                       role="presentation"
-                      className={findAge.indexOf('<17') !== -1 ? 'active' : ''}
-                      onClick={() => changeFindAge('<17')}
+                      className={findAge.indexOf('<18') !== -1 ? 'active' : ''}
+                      onClick={() => changeFindAge('<18')}
                     >
-                      Less than 17 years old
+                      Менее 18
                     </li>
                     <li
                       role="presentation"
@@ -138,7 +142,7 @@ class Home extends Component {
                       }
                       onClick={() => changeFindAge('18-21')}
                     >
-                      From 18 to 21 years old
+                      От 18 до 21
                     </li>
                     <li
                       role="presentation"
@@ -147,7 +151,7 @@ class Home extends Component {
                       }
                       onClick={() => changeFindAge('22-25')}
                     >
-                      From 22 to 25 years old
+                      От 22 до 25
                     </li>
                     <li
                       role="presentation"
@@ -156,14 +160,14 @@ class Home extends Component {
                       }
                       onClick={() => changeFindAge('26-35')}
                     >
-                      From 26 to 35 years old
+                      От 26 до 35
                     </li>
                     <li
                       role="presentation"
-                      className={findAge.indexOf('>36') !== -1 ? 'active' : ''}
-                      onClick={() => changeFindAge('>36')}
+                      className={findAge.indexOf('>=36') !== -1 ? 'active' : ''}
+                      onClick={() => changeFindAge('>=36')}
                     >
-                      Оver 36 years old
+                      36 и старше
                     </li>
                     <li
                       role="presentation"
@@ -172,7 +176,7 @@ class Home extends Component {
                       }
                       onClick={() => changeFindAge('unknown')}
                     >
-                      No difference
+                      Без разницы
                     </li>
                   </ul>
                 </div>
@@ -183,7 +187,15 @@ class Home extends Component {
             </button>
           </div>
         </div>
-        <div className="block2">block2</div>
+        <div className="block2">
+          <ul>
+            {posts.map(post => (
+              <li key={post.slug}>
+                <Link to={`/${post.slug}/`}>{post.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
         <style>
           {`
               body {
@@ -208,8 +220,10 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Home)
+  withRouteData(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(Home)
+  )
 );

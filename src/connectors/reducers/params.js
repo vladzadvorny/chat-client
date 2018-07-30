@@ -7,9 +7,9 @@ import {
 
 const initialState = {
   sex: 'male', // ['male', 'female']
-  age: '18-21', // ['<17', '18-21', '22-25', '26-35', '>36']
+  age: '18-21', // ['<18', '18-21', '22-25', '26-35', '=>36']
   findSex: 'female', // ['male', 'female']
-  findAge: ['18-21', '22-25'] // ['<17', '18-21', '22-25', '26-35', '>36']
+  findAge: ['18-21', '22-25'] // ['<18', '18-21', '22-25', '26-35', '=>36']
 };
 
 const onChangeFindAge = (state, payload) => {

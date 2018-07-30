@@ -19,6 +19,11 @@ body {
   color: $blackColor;
   background-color: lighten($blackColor, 77);
   padding-top: $headerHeight + $freeSpace;
+  background-image: url('../public/img/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 #root {

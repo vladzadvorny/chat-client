@@ -1,0 +1,12 @@
+@import '../globals';
+
+.post {
+  background-color: $whiteColor;
+  box-shadow: $shadow;
+  padding: $freeSpace;
+  flex-direction: column;
+
+  h2 {
+    margin-top: 0;
+  }
+}

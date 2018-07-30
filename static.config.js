@@ -1,16 +1,34 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+import React, { Component } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import { reloadRoutes } from 'react-static/node';
+import jdown from 'jdown';
+import chokidar from 'chokidar';
+
+chokidar.watch('content').on('all', () => reloadRoutes());
 
 export default {
   getSiteData: () => ({
     title: 'React Static'
   }),
   // eslint-disable-next-line
-  getRoutes: () => {
+  getRoutes: async () => {
+    const { posts } = await jdown('content');
+
     const routes = [
       {
         path: '/',
-        component: 'src/pages/Home'
+        component: 'src/pages/Home',
+        getData: () => ({
+          posts
+        }),
+        children: posts.map(post => ({
+          path: `/${post.slug}`,
+          component: 'src/pages/Post',
+          getData: () => ({
+            post
+          })
+        }))
       },
       {
         path: '/chat',
@@ -79,5 +97,29 @@ export default {
       }
     ];
     return config;
+  },
+  Document: class CustomHtml extends Component {
+    render() {
+      const {
+        Html,
+        Head,
+        Body,
+        children
+        // renderMeta
+      } = this.props;
+
+      return (
+        <Html lang="ru">
+          <Head>
+            <meta charSet="UTF-8" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+          </Head>
+          <Body>{children}</Body>
+        </Html>
+      );
+    }
   }
 };
