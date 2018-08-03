@@ -1,0 +1,14 @@
+@import '../globals';
+
+.chat {
+  background-color: $whiteColor;
+  box-shadow: $shadow;
+  padding: $freeSpace;
+  flex-direction: column;
+  flex: 1;
+  background-color: rgba($whiteColor, $whiteOpacity);
+
+  h2 {
+    margin-top: 0;
+  }
+}

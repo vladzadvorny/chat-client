@@ -20,3 +20,17 @@ export const changeFindAge = payload => ({
   type: CHANGE_FINDAGE,
   payload
 });
+
+// ws
+export const wsConnect = url => ({
+  type: 'WEBSOCKET:CONNECT',
+  payload: { url }
+});
+export const wsSend = payload => ({
+  type: 'WEBSOCKET:SEND',
+  payload
+});
+export const wsDisconnect = payload => ({
+  type: 'WEBSOCKET:DISCONNECT',
+  payload
+});

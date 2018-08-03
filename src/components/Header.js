@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-static';
 
 import './Header.scss';
+import { siteName, siteUrl } from '../utils/config';
 
 class Header extends Component {
   render() {
@@ -14,10 +15,10 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           {pathname === '/' ? (
-            <h1 className="logo">Анонимный чат</h1>
+            <h1 className="logo">{siteName}</h1>
           ) : (
-            <Link className="logo" to="/">
-              Анонимный чат
+            <Link className="logo" to={siteUrl}>
+              {siteName}
             </Link>
           )}
         </div>
