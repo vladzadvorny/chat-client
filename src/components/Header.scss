@@ -35,7 +35,8 @@
       padding: 0;
       font-size: 1.8em;
       user-select: none;
-      cursor: pointer;
+      color: $blackColor;
+      text-decoration: none;
 
       &::after {
         content: '';

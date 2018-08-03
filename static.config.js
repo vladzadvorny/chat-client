@@ -13,7 +13,7 @@ export default {
   }),
   // eslint-disable-next-line
   getRoutes: async () => {
-    const { posts } = await jdown('content');
+    const { posts, about } = await jdown('content');
 
     const routes = [
       {
@@ -23,7 +23,7 @@ export default {
           posts
         }),
         children: posts.map(post => ({
-          path: `/${post.slug}`,
+          path: `/блог/${post.slug}`,
           component: 'src/pages/Post',
           getData: () => ({
             post
@@ -33,6 +33,13 @@ export default {
       {
         path: '/chat',
         component: 'src/pages/Chat'
+      },
+      {
+        path: '/about',
+        component: 'src/pages/About',
+        getData: () => ({
+          about
+        })
       },
       {
         is404: true,
