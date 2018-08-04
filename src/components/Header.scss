@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: space-around;
   height: $headerHeight;
-  background-color: rgba($whiteColor, $whiteOpacity);
+  background-color: $whiteColor;
   z-index: 1000;
   box-shadow: $shadow;
 

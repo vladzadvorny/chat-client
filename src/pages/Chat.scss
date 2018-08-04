@@ -1,14 +1,146 @@
 @import '../globals';
 
 .chat {
-  background-color: $whiteColor;
-  box-shadow: $shadow;
-  padding: $freeSpace;
+  // background-color: $whiteColor;
+  box-shadow: 0px 0px 20px 0px rgba($blackColor, 0.05);
+
   flex-direction: column;
   flex: 1;
-  background-color: rgba($whiteColor, $whiteOpacity);
 
   h2 {
     margin-top: 0;
+  }
+
+  .messages-box {
+    background-color: rgba($primaryColor, 0.2);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .messages {
+      flex: 1;
+      display: flex;
+      flex-direction: column-reverse;
+
+      .message {
+        display: flex;
+        padding: 5px 0;
+        margin: 5px 0;
+        min-height: 45px;
+
+        .speech-bubble {
+          position: relative;
+          min-width: 250px;
+          min-height: 20px;
+          padding: 0px;
+          background-color: $whiteColor;
+          border-radius: 4px;
+          padding: 7px 10px;
+          box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
+          margin-right: 12px;
+          margin-left: 12px;
+        }
+
+        .speech-bubble:after {
+          content: '';
+          position: absolute;
+          border-style: solid;
+          border-width: 5px 9px 5px 0;
+          border-color: transparent $whiteColor;
+          display: block;
+          width: 0;
+          z-index: 1;
+          left: -9px;
+          bottom: 4px;
+        }
+
+        &.my {
+          justify-content: flex-end;
+
+          .speech-bubble {
+            background-color: lighten($primaryColor, 39);
+          }
+
+          .speech-bubble:after {
+            border-width: 5px 0 5px 9px;
+            border-color: transparent lighten($primaryColor, 39);
+            left: auto;
+            right: -9px;
+            bottom: 4px;
+          }
+        }
+
+        &.unread {
+          background-color: rgba($primaryColor, 0.5);
+        }
+      }
+    }
+
+    .info {
+      display: flex;
+      justify-content: center;
+      height: 24px;
+      align-items: center;
+
+      span {
+        color: darken($whiteColor, 10);
+        font-style: italic;
+      }
+    }
+  }
+
+  .write-box {
+    background-color: $whiteColor;
+    padding: 7px;
+    display: flex;
+
+    .box {
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      padding: 2px 0;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border: 1px solid $primaryColor;
+      border-right: 0;
+
+      i {
+        font-size: 1.5em;
+        cursor: pointer;
+        // color: darken($grayColor, 12);
+        color: lighten($primaryColor, 10);
+      }
+    }
+
+    textarea {
+      flex: 1;
+      border: 0;
+      padding: 8px 10px 8px 5px;
+      font-size: 1em;
+      resize: none;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1.5em;
+      border: 1px solid $primaryColor;
+      border-right: 0;
+      border-left: 0;
+    }
+
+    button {
+      width: 40px;
+      font-size: 1.5em;
+      border: 0;
+      cursor: pointer;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: 1px solid $primaryColor;
+      border-left: 0;
+
+      i {
+        color: lighten($primaryColor, 10);
+      }
+    }
   }
 }
