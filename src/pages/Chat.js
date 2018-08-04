@@ -6,6 +6,7 @@ import 'emoji-mart/css/emoji-mart.css';
 
 import { wsConnect, wsSend, wsDisconnect } from '../connectors/actions';
 import { wsUrl } from '../utils/config';
+import formatTime from '../utils/formatTime';
 import './Chat.scss';
 
 class Chat extends Component {
@@ -35,6 +36,20 @@ class Chat extends Component {
   onChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  onSend() {
+    const { body } = this.state;
+    // eslint-disable-next-line no-shadow
+    const { wsSend } = this.props;
+
+    wsSend({
+      body
+    });
+
+    this.setState({
+      body: ''
+    });
   }
 
   handleCursorPosition(e) {
@@ -70,6 +85,7 @@ class Chat extends Component {
 
   render() {
     const { body, picker } = this.state;
+    const { messages } = this.props;
 
     return (
       <div className="chat container">
@@ -79,7 +95,15 @@ class Chat extends Component {
           onClick={() => this.setState({ picker: false })}
         >
           <div className="messages">
-            <div className="message my unread">
+            {messages.map(item => (
+              <div className={`message${item.my ? ' my' : ''}`} key={item.id}>
+                <div className="speech-bubble">
+                  {item.body}
+                  {formatTime(new Date(item.date))}
+                </div>
+              </div>
+            ))}
+            {/* <div className="message my unread">
               <div className="speech-bubble">как дела?</div>
             </div>
             <div className="message">
@@ -96,7 +120,7 @@ class Chat extends Component {
             </div>
             <div className="message my">
               <div className="speech-bubble">как дела?</div>
-            </div>
+            </div> */}
           </div>
           <div className="info">
             <span>Собеседник пишет сообщение...</span>
@@ -157,7 +181,8 @@ class Chat extends Component {
 }
 
 const mapStateToProps = state => ({
-  params: state.params
+  params: state.params,
+  messages: state.ws.messages
 });
 
 const mapDispatchToProps = {
