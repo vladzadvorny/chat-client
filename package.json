@@ -34,6 +34,7 @@
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.4",
     "react-redux": "^5.0.7",
+    "react-share": "^2.2.0",
     "react-static": "^5.9.7",
     "react-textarea-autosize": "^7.0.4",
     "redux": "^4.0.0",
