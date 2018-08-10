@@ -139,18 +139,19 @@
 
         .share-buttons {
           display: flex;
-          margin-bottom: $freeSpace;
+          margin-bottom: 10px;
 
           .network {
             display: flex;
             align-items: center;
-            margin-right: $freeSpace;
+            margin-right: 12px;
             flex-direction: column;
+            cursor: pointer;
           }
         }
 
         .google-play {
-          width: 130px;
+          width: 120px;
           display: block;
           text-decoration: none;
           margin-bottom: 10px;

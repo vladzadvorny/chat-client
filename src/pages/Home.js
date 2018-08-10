@@ -203,6 +203,9 @@ class Home extends Component {
         <div className="block-bottom">
           <div className="container">
             <div className="column">
+              <a href="/" className="google-play">
+                <img src={google} alt="Google Play" />
+              </a>
               <div className="share-buttons">
                 <div className="network">
                   <VKShareButton
@@ -247,11 +250,6 @@ class Home extends Component {
                   <OKShareCount url={siteUrl} className="share-count" />
                 </div>
               </div>
-
-              <a href="/" className="google-play">
-                <img src={google} alt="Google Play" />
-              </a>
-
               <p>
                 Анонимный чат для онлайн общения двоих взрослых или подростков,
                 без регистрации и с возможностью отправки фото и голосовых
