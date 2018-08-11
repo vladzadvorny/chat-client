@@ -155,6 +155,7 @@ export default {
             />
             <meta name="msapplication-TileColor" content="#da532c" />
             <meta name="theme-color" content="#ffffff" />
+            <meta name="yandex-verification" content="612027c27b2d9cc3" />
           </Head>
           <Body>{children}</Body>
         </Html>
