@@ -39,6 +39,10 @@ class Home extends Component {
     return (
       <div className="home">
         <Head>
+          <meta
+            name="description"
+            content="Русскоязыный анонимный чат для онлайн общения двух взрослых или подростков, с отправкой фотографий, с выбором пола и возраста."
+          />
           <title>Анонимный чат</title>
         </Head>
         <div className="block-top">
@@ -259,7 +263,11 @@ class Home extends Component {
               </p>
 
               <p>
-                © <a href={siteUrl}>Aнонимный-чат.рф</a>, 2018
+                <a href={`${siteUrl}/about`}>О проекте</a>
+              </p>
+
+              <p>
+                © <a href={siteUrl}>Анонимный-чат.рф</a>, 2018.
               </p>
             </div>
             <div className="column">

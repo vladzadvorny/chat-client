@@ -6,7 +6,13 @@
   padding: $freeSpace;
   flex-direction: column;
 
-  h2 {
+  h1 {
     margin-top: 0;
+    font-size: 1.8em;
+    margin-bottom: 0.8em;
+  }
+
+  p {
+    font-size: 1.1em;
   }
 }

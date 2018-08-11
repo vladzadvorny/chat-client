@@ -9,7 +9,8 @@ import { siteName } from '../utils/config';
 export default withRouteData(({ post }) => (
   <div className="post container">
     <Head>
-      <title>{`${post.title} | ${siteName}`}</title>
+      <meta name="description" content={post.description} />
+      <title>{`${post.title} — ${siteName}`}</title>
     </Head>
     <h2>{post.title}</h2>
     {convert(post.contents)}
