@@ -25,6 +25,12 @@ class Chat extends Component {
     document.addEventListener('click', e => this.handleCursorPosition(e), true);
 
     wsConnect(wsUrl);
+
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   componentWillUnmount() {
@@ -48,8 +54,14 @@ class Chat extends Component {
     });
 
     this.setState({
-      body: ''
+      body: '',
+      picker: false
     });
+  }
+
+  scrollToBottom() {
+    // this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    this.messagesEnd.scrollIntoView();
   }
 
   handleCursorPosition(e) {
@@ -98,8 +110,10 @@ class Chat extends Component {
             {messages.map(item => (
               <div className={`message${item.my ? ' my' : ''}`} key={item.id}>
                 <div className="speech-bubble">
-                  {item.body}
-                  {formatTime(new Date(item.date))}
+                  <div className="message-body">{item.body}</div>
+                  <div className="message-date">
+                    {formatTime(new Date(item.date))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -151,6 +165,11 @@ class Chat extends Component {
             <i className="fas fa-greater-than" />
           </button>
         </div>
+        <div
+          ref={el => {
+            this.messagesEnd = el;
+          }}
+        />
         {picker && (
           <Picker
             style={{
