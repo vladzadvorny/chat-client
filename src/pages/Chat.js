@@ -8,6 +8,7 @@ import 'emoji-mart/css/emoji-mart.css';
 import { wsConnect, wsSend, wsDisconnect } from '../connectors/actions';
 import { wsUrl, siteName } from '../utils/config';
 import formatTime from '../utils/formatTime';
+import { MESSAGE } from '../utils/wsTypes';
 import './Chat.scss';
 
 class Chat extends Component {
@@ -51,7 +52,8 @@ class Chat extends Component {
     const { wsSend } = this.props;
 
     wsSend({
-      body
+      body,
+      type: MESSAGE
     });
 
     this.setState({
@@ -191,7 +193,7 @@ class Chat extends Component {
             emojiSize={20}
           />
         )}
-        <style jsx>
+        <style>
           {`
             body {
               padding-top: 0;
