@@ -43,7 +43,7 @@ class Home extends Component {
             name="description"
             content="Русскоязыный анонимный чат для онлайн общения двух взрослых или подростков, с отправкой фотографий, с выбором пола и возраста."
           />
-          <title>Анонимный чат</title>
+          <title>{siteName}</title>
         </Head>
         <div className="block-top">
           <div className="enter-box">

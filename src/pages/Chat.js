@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Head } from 'react-static';
 import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
 import { wsConnect, wsSend, wsDisconnect } from '../connectors/actions';
-import { wsUrl } from '../utils/config';
+import { wsUrl, siteName } from '../utils/config';
 import formatTime from '../utils/formatTime';
 import './Chat.scss';
 
@@ -101,6 +102,9 @@ class Chat extends Component {
 
     return (
       <div className="chat container">
+        <Head>
+          <title>{`Чат с собеседником — ${siteName}`}</title>
+        </Head>
         <div
           className="messages-box"
           role="presentation"
