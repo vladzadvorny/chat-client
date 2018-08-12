@@ -22,4 +22,8 @@
     border: 3px solid $whiteColor;
     box-shadow: 0px 0px 10px 0px rgba($blackColor, 0.15);
   }
+
+  ol {
+    margin-left: $freeSpace * 2;
+  }
 }
