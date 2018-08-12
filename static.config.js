@@ -114,6 +114,29 @@ export default {
         children
         // renderMeta
       } = this.props;
+      const script1 = `(function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter49940956 = new Ya.Metrika2({
+                    id:49940956,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks2");`;
 
       return (
         <Html lang="ru">
@@ -157,7 +180,20 @@ export default {
             <meta name="theme-color" content="#ffffff" />
             <meta name="yandex-verification" content="612027c27b2d9cc3" />
           </Head>
-          <Body>{children}</Body>
+          <Body>
+            {children}
+
+            <script dangerouslySetInnerHTML={{ __html: script1 }} />
+            <noscript>
+              <div>
+                <img
+                  src="https://mc.yandex.ru/watch/49940956"
+                  style={{ position: 'absolute', left: '-9999' }}
+                  alt=""
+                />
+              </div>
+            </noscript>
+          </Body>
         </Html>
       );
     }
