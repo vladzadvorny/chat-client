@@ -5,10 +5,15 @@ import Textarea from 'react-textarea-autosize';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
-import { wsConnect, wsSend, wsDisconnect } from '../connectors/actions';
+import {
+  wsConnect,
+  wsSend,
+  wsDisconnect,
+  stopTyping
+} from '../connectors/actions';
 import { wsUrl, siteName } from '../utils/config';
 import formatTime from '../utils/formatTime';
-import { MESSAGE } from '../utils/wsTypes';
+import { MESSAGE, TYPING } from '../utils/wsTypes';
 import './Chat.scss';
 
 class Chat extends Component {
@@ -16,7 +21,8 @@ class Chat extends Component {
     body: '',
     picker: false,
     selectionStart: 0,
-    selectionEnd: 0
+    selectionEnd: 0,
+    sendingTypingIsAllowed: true
   };
 
   componentDidMount() {
@@ -29,6 +35,18 @@ class Chat extends Component {
     wsConnect(wsUrl);
 
     this.scrollToBottom();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // eslint-disable-next-line no-shadow
+    const { stopTyping, typing } = this.props;
+    console.log(nextProps.typing);
+
+    if (nextProps.typing && !typing) {
+      setTimeout(() => {
+        stopTyping();
+      }, 4000);
+    }
   }
 
   componentDidUpdate() {
@@ -60,6 +78,28 @@ class Chat extends Component {
       body: '',
       picker: false
     });
+  }
+
+  onTyping() {
+    // eslint-disable-next-line no-shadow
+    const { wsSend } = this.props;
+    const { sendingTypingIsAllowed } = this.state;
+
+    if (sendingTypingIsAllowed) {
+      wsSend({
+        type: TYPING
+      });
+      this.setState({ sendingTypingIsAllowed: false });
+
+      const self = this;
+      setTimeout(
+        () =>
+          self.setState({
+            sendingTypingIsAllowed: true
+          }),
+        3000
+      );
+    }
   }
 
   scrollToBottom() {
@@ -100,7 +140,7 @@ class Chat extends Component {
 
   render() {
     const { body, picker } = this.state;
-    const { messages } = this.props;
+    const { messages, typing } = this.props;
 
     return (
       <div className="chat container">
@@ -143,7 +183,7 @@ class Chat extends Component {
             </div> */}
           </div>
           <div className="info">
-            <span>Собеседник пишет сообщение...</span>
+            {typing && <span>Собеседник пишет сообщение...</span>}
           </div>
         </div>
         <div className="write-box">
@@ -163,6 +203,7 @@ class Chat extends Component {
             name="body"
             onChange={e => this.onChange(e)}
             onClick={() => this.setState({ picker: false })}
+            onKeyDown={() => this.onTyping()}
             ref={ref => {
               this.textarea = ref;
             }}
@@ -207,13 +248,15 @@ class Chat extends Component {
 
 const mapStateToProps = state => ({
   params: state.params,
-  messages: state.ws.messages
+  messages: state.ws.messages,
+  typing: state.ws.typing
 });
 
 const mapDispatchToProps = {
   wsConnect,
   wsSend,
-  wsDisconnect
+  wsDisconnect,
+  stopTyping
 };
 
 export default connect(

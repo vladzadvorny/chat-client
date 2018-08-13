@@ -34,3 +34,8 @@ export const wsDisconnect = payload => ({
   type: 'WEBSOCKET:DISCONNECT',
   payload
 });
+
+export const TYPING_STOP = 'TYPING_STOP';
+export const stopTyping = () => ({
+  type: TYPING_STOP
+});
