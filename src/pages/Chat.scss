@@ -43,7 +43,7 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          align-items: center;
+          align-items: stretch;
         }
 
         .speech-bubble:after {
@@ -59,14 +59,19 @@
           bottom: 4px;
         }
 
-        // .message-body {
-        // }
+        .message-body {
+          display: flex;
+          align-items: center;
+        }
 
         .message-date {
           color: lighten($primaryColor, 4);
           font-size: 0.9em;
           padding-left: $freeSpace;
           white-space: nowrap;
+          display: flex;
+          align-items: center;
+          opacity: 0.6;
         }
 
         &.my {
@@ -92,7 +97,7 @@
         }
 
         &.unread {
-          background-color: rgba($primaryColor, 0.5);
+          background-color: rgba(lighten($blackColor, 77), 0.2);
         }
       }
     }

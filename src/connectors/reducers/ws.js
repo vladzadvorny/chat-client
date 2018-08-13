@@ -11,10 +11,21 @@ function types(state, payload) {
   }
 
   if (data.type === TYPING) {
-    console.log('typing');
+    // console.log('typing');
+
+    const messages = state.messages.map(message => {
+      if (message.my && message.unread) {
+        return Object.assign({}, message, {
+          unread: false
+        });
+      }
+
+      return message;
+    });
 
     return Object.assign({}, state, {
-      typing: true
+      typing: true,
+      messages
     });
   }
 

@@ -40,7 +40,7 @@ class Chat extends Component {
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
     const { stopTyping, typing } = this.props;
-    console.log(nextProps.typing);
+    // console.log(nextProps.typing);
 
     if (nextProps.typing && !typing) {
       setTimeout(() => {
@@ -154,7 +154,12 @@ class Chat extends Component {
         >
           <div className="messages">
             {messages.map(item => (
-              <div className={`message${item.my ? ' my' : ''}`} key={item.id}>
+              <div
+                className={`message${item.my ? ' my' : ''}${
+                  item.unread ? ' unread' : ''
+                }`}
+                key={item.id}
+              >
                 <div className="speech-bubble">
                   <div className="message-body">{item.body}</div>
                   <div className="message-date">
