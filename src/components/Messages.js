@@ -6,13 +6,7 @@ import 'emoji-mart/css/emoji-mart.css';
 
 import './Messages.scss';
 import formatTime from '../utils/formatTime';
-import {
-  wsConnect,
-  wsSend,
-  wsDisconnect,
-  stopTyping
-} from '../connectors/actions';
-import { wsUrl } from '../utils/config';
+import { wsSend, stopTyping } from '../connectors/actions';
 import { MESSAGE, TYPING } from '../utils/wsTypes';
 
 class Messages extends Component {
@@ -25,13 +19,8 @@ class Messages extends Component {
   };
 
   componentDidMount() {
-    // eslint-disable-next-line no-shadow
-    const { wsConnect } = this.props;
-
     document.addEventListener('input', e => this.handleCursorPosition(e), true);
     document.addEventListener('click', e => this.handleCursorPosition(e), true);
-
-    wsConnect(wsUrl);
 
     this.scrollToBottom();
   }
@@ -50,12 +39,6 @@ class Messages extends Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
-  }
-
-  componentWillUnmount() {
-    // eslint-disable-next-line no-shadow
-    const { wsDisconnect } = this.props;
-    wsDisconnect();
   }
 
   onChange(e) {
@@ -254,9 +237,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  wsConnect,
   wsSend,
-  wsDisconnect,
   stopTyping
 };
 

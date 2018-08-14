@@ -1,8 +1,10 @@
-import { MESSAGE, TYPING } from '../../utils/wsTypes';
+import { MESSAGE, TYPING, START, LOOKING } from '../../utils/wsTypes';
 import { TYPING_STOP } from '../actions';
 
 function types(state, payload) {
   const data = JSON.parse(payload.data);
+
+  // message
   if (data.type === MESSAGE) {
     return Object.assign({}, state, {
       messages: [data, ...state.messages],
@@ -10,6 +12,7 @@ function types(state, payload) {
     });
   }
 
+  // typing
   if (data.type === TYPING) {
     // console.log('typing');
 
@@ -29,16 +32,43 @@ function types(state, payload) {
     });
   }
 
+  // start
+  if (data.type === START) {
+    return Object.assign({}, state, {
+      start: true
+    });
+  }
+
+  // looking
+  if (data.type === LOOKING) {
+    return Object.assign({}, state, {
+      counts: data.counts
+    });
+  }
+
   return state;
 }
 
 const initialState = {
   messages: [],
-  typing: false
+  typing: false,
+  connect: false,
+  start: false,
+  counts: [0, 0]
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'WEBSOCKET:OPEN':
+      return Object.assign({}, state, {
+        connect: true
+      });
+
+    case 'WEBSOCKET:CLOSE':
+      return Object.assign({}, state, {
+        connect: false
+      });
+
     case 'WEBSOCKET:MESSAGE':
       return types(state, action.payload);
     // return [...state, data];
