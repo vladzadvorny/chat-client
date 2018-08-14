@@ -1,0 +1,51 @@
+@import '../globals';
+
+.looking {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($primaryColor, 0.2);
+
+  h2 {
+    margin: 0;
+  }
+
+  .box {
+    background-color: $whiteColor;
+    min-height: 150px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $freeSpace;
+    box-shadow: $shadow;
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .loader {
+    margin: $freeSpace;
+    width: 4em;
+    height: 4em;
+    border: 0.8em solid transparentize(lighten($blackColor, 77), 0.1);
+    border-left: 0.8em solid $primaryColor;
+    border-radius: 50%;
+    animation: load8 1.1s infinite linear;
+  }
+
+  @keyframes load8 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

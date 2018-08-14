@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { siteName } from '../utils/config';
 import './Chat.scss';
 
-import Messages from '../components/Messages';
+// import Messages from '../components/Messages';
+import Looking from '../components/Looking';
 
 class Chat extends Component {
   render() {
@@ -14,7 +15,8 @@ class Chat extends Component {
         <Head>
           <title>{`Чат с собеседником — ${siteName}`}</title>
         </Head>
-        <Messages />
+        {/* <Messages /> */}
+        <Looking />
       </div>
     );
   }
