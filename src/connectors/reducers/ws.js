@@ -1,5 +1,5 @@
 import { MESSAGE, TYPING, START, LOOKING } from '../../utils/wsTypes';
-import { TYPING_STOP } from '../actions';
+import { TYPING_STOP, RESET } from '../actions';
 
 function types(state, payload) {
   const data = JSON.parse(payload.data);
@@ -54,7 +54,8 @@ const initialState = {
   typing: false,
   connect: false,
   start: false,
-  counts: [0, 0]
+  counts: [0, 0],
+  error: false
 };
 
 export default (state = initialState, action) => {
@@ -69,6 +70,11 @@ export default (state = initialState, action) => {
         connect: false
       });
 
+    case 'WEBSOCKET:ERROR':
+      return Object.assign({}, state, {
+        error: true
+      });
+
     case 'WEBSOCKET:MESSAGE':
       return types(state, action.payload);
     // return [...state, data];
@@ -77,6 +83,9 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         typing: false
       });
+
+    case RESET:
+      return initialState;
 
     default:
       return state;

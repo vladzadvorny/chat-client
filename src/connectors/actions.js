@@ -39,3 +39,8 @@ export const TYPING_STOP = 'TYPING_STOP';
 export const stopTyping = () => ({
   type: TYPING_STOP
 });
+
+export const RESET = 'RESET';
+export const reset = () => ({
+  type: RESET
+});

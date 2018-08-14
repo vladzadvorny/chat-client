@@ -32,7 +32,8 @@ class Home extends Component {
       changeAge,
       changeFindSex,
       changeFindAge,
-      posts
+      posts,
+      history
     } = this.props;
     /* eslint-enable */
 
@@ -199,7 +200,11 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-            <button type="button" className="enter-button">
+            <button
+              type="button"
+              className="enter-button"
+              onClick={() => history.push('/chat')}
+            >
               Find!
             </button>
           </div>

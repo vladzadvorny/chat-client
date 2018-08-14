@@ -51,10 +51,12 @@ class Messages extends Component {
     // eslint-disable-next-line no-shadow
     const { wsSend } = this.props;
 
-    wsSend({
-      body,
-      type: MESSAGE
-    });
+    if (body) {
+      wsSend({
+        body,
+        type: MESSAGE
+      });
+    }
 
     this.setState({
       body: '',
@@ -62,10 +64,16 @@ class Messages extends Component {
     });
   }
 
-  onTyping() {
+  onTyping(e) {
     // eslint-disable-next-line no-shadow
     const { wsSend } = this.props;
     const { sendingTypingIsAllowed } = this.state;
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.onSend();
+      return;
+    }
 
     if (sendingTypingIsAllowed) {
       wsSend({
@@ -187,7 +195,7 @@ class Messages extends Component {
             name="body"
             onChange={e => this.onChange(e)}
             onClick={() => this.setState({ picker: false })}
-            onKeyDown={() => this.onTyping()}
+            onKeyDown={e => this.onTyping(e)}
             ref={ref => {
               this.textarea = ref;
             }}

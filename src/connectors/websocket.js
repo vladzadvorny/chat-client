@@ -13,6 +13,8 @@ export default store => next => action => {
         store.dispatch({ type: 'WEBSOCKET:CLOSE', payload: event });
       websocket.onmessage = event =>
         store.dispatch({ type: 'WEBSOCKET:MESSAGE', payload: event });
+      websocket.onerror = event =>
+        store.dispatch({ type: 'WEBSOCKET:ERROR', payload: event });
 
       break;
 
