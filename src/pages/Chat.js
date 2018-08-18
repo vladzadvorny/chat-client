@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { siteName, wsUrl } from '../utils/config';
 import './Chat.scss';
-import { wsConnect, wsDisconnect, wsSend, reset } from '../connectors/actions';
+import { reset } from '../connectors/actions';
 import { LOOKING } from '../utils/wsTypes';
 
 import Messages from '../components/Messages';
@@ -13,22 +13,32 @@ import Looking from '../components/Looking';
 class Chat extends Component {
   componentDidMount() {
     // eslint-disable-next-line no-shadow
-    const { wsConnect, reset } = this.props;
+    const { dispatch, reset } = this.props;
     reset();
-    wsConnect(wsUrl);
+
+    this.websocket = new WebSocket(wsUrl);
+    const ws = this.websocket;
+
+    ws.onopen = () => dispatch({ type: 'WEBSOCKET:OPEN' });
+    ws.onerror = event => dispatch({ type: 'WEBSOCKET:ERROR', payload: event });
+    ws.onmessage = event => {
+      const { type, payload } = JSON.parse(event.data);
+      dispatch({ type, payload });
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
-    const { connect, wsSend, history, error } = this.props;
-
+    const { connect, history, error } = this.props;
     if (nextProps.connect && !connect) {
       console.log('connect');
-      wsSend({
-        type: LOOKING
-      });
-    }
 
+      this.websocket.send(
+        JSON.stringify({
+          type: LOOKING
+        })
+      );
+    }
     if (!nextProps.connect && connect) {
       console.log('disconnect');
       if (
@@ -38,7 +48,6 @@ class Chat extends Component {
       )
         history.push('/');
     }
-
     if (nextProps.error && !error) {
       console.log('error');
       if (
@@ -53,8 +62,9 @@ class Chat extends Component {
 
   componentWillUnmount() {
     // eslint-disable-next-line no-shadow
-    const { wsDisconnect } = this.props;
-    wsDisconnect();
+    const { dispatch } = this.props;
+    this.websocket.close();
+    dispatch({ type: 'WEBSOCKET:CLOSE' });
   }
 
   render() {
@@ -65,7 +75,7 @@ class Chat extends Component {
         <Head>
           <title>{`Чат с собеседником — ${siteName}`}</title>
         </Head>
-        {start ? <Messages /> : <Looking />}
+        {start ? <Messages websocket={this.websocket} /> : <Looking />}
       </div>
     );
   }
@@ -78,12 +88,10 @@ const mapStateToProps = state => ({
   error: state.ws.error
 });
 
-const mapDispatchToProps = {
-  wsConnect,
-  wsSend,
-  wsDisconnect,
+const mapDispatchToProps = dispatch => ({
+  dispatch,
   reset
-};
+});
 
 export default connect(
   mapStateToProps,

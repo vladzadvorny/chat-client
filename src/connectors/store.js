@@ -2,9 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducers from './reducers';
-import websocket from './websocket';
 
-const middlewares = [websocket];
+const middlewares = [];
 
 const store = createStore(
   reducers,

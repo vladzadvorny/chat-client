@@ -1,54 +1,6 @@
 import { MESSAGE, TYPING, START, LOOKING } from '../../utils/wsTypes';
 import { TYPING_STOP, RESET } from '../actions';
 
-function types(state, payload) {
-  const data = JSON.parse(payload.data);
-
-  // message
-  if (data.type === MESSAGE) {
-    return Object.assign({}, state, {
-      messages: [data, ...state.messages],
-      typing: false
-    });
-  }
-
-  // typing
-  if (data.type === TYPING) {
-    // console.log('typing');
-
-    const messages = state.messages.map(message => {
-      if (message.my && message.unread) {
-        return Object.assign({}, message, {
-          unread: false
-        });
-      }
-
-      return message;
-    });
-
-    return Object.assign({}, state, {
-      typing: true,
-      messages
-    });
-  }
-
-  // start
-  if (data.type === START) {
-    return Object.assign({}, state, {
-      start: true
-    });
-  }
-
-  // looking
-  if (data.type === LOOKING) {
-    return Object.assign({}, state, {
-      counts: data.counts
-    });
-  }
-
-  return state;
-}
-
 const initialState = {
   messages: [],
   typing: false,
@@ -75,13 +27,39 @@ export default (state = initialState, action) => {
         error: true
       });
 
-    case 'WEBSOCKET:MESSAGE':
-      return types(state, action.payload);
-    // return [...state, data];
+    case MESSAGE:
+      return Object.assign({}, state, {
+        messages: [action.payload, ...state.messages],
+        typing: false
+      });
+
+    case TYPING:
+      return Object.assign({}, state, {
+        typing: true,
+        messages: state.messages.map(message => {
+          if (message.my && message.unread) {
+            return Object.assign({}, message, {
+              unread: false
+            });
+          }
+
+          return message;
+        })
+      });
 
     case TYPING_STOP:
       return Object.assign({}, state, {
         typing: false
+      });
+
+    case START:
+      return Object.assign({}, state, {
+        start: true
+      });
+
+    case LOOKING:
+      return Object.assign({}, state, {
+        counts: action.payload
       });
 
     case RESET:

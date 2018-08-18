@@ -22,19 +22,6 @@ export const changeFindAge = payload => ({
 });
 
 // ws
-export const wsConnect = url => ({
-  type: 'WEBSOCKET:CONNECT',
-  payload: { url }
-});
-export const wsSend = payload => ({
-  type: 'WEBSOCKET:SEND',
-  payload
-});
-export const wsDisconnect = payload => ({
-  type: 'WEBSOCKET:DISCONNECT',
-  payload
-});
-
 export const TYPING_STOP = 'TYPING_STOP';
 export const stopTyping = () => ({
   type: TYPING_STOP

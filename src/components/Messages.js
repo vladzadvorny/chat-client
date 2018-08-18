@@ -6,7 +6,7 @@ import 'emoji-mart/css/emoji-mart.css';
 
 import './Messages.scss';
 import formatTime from '../utils/formatTime';
-import { wsSend, stopTyping } from '../connectors/actions';
+import { stopTyping } from '../connectors/actions';
 import { MESSAGE, TYPING } from '../utils/wsTypes';
 
 class Messages extends Component {
@@ -49,13 +49,20 @@ class Messages extends Component {
   onSend() {
     const { body } = this.state;
     // eslint-disable-next-line no-shadow
-    const { wsSend } = this.props;
+    const { websocket } = this.props;
 
     if (body) {
-      wsSend({
-        body,
-        type: MESSAGE
-      });
+      // wsSend({
+      //   body,
+      //   type: MESSAGE
+      // });
+
+      websocket.send(
+        JSON.stringify({
+          body,
+          type: MESSAGE
+        })
+      );
     }
 
     this.setState({
@@ -66,7 +73,7 @@ class Messages extends Component {
 
   onTyping(e) {
     // eslint-disable-next-line no-shadow
-    const { wsSend } = this.props;
+    const { websocket } = this.props;
     const { sendingTypingIsAllowed } = this.state;
 
     if (e.key === 'Enter') {
@@ -76,9 +83,11 @@ class Messages extends Component {
     }
 
     if (sendingTypingIsAllowed) {
-      wsSend({
-        type: TYPING
-      });
+      websocket.send(
+        JSON.stringify({
+          type: TYPING
+        })
+      );
       this.setState({ sendingTypingIsAllowed: false });
 
       const self = this;
@@ -245,7 +254,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  wsSend,
   stopTyping
 };
 
