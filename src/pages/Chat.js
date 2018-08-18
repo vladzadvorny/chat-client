@@ -29,16 +29,18 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
-    const { connect, history, error } = this.props;
+    const { connect, history, error, params } = this.props;
     if (nextProps.connect && !connect) {
       console.log('connect');
 
       this.websocket.send(
         JSON.stringify({
-          type: LOOKING
+          type: LOOKING,
+          payload: params
         })
       );
     }
+
     if (!nextProps.connect && connect) {
       console.log('disconnect');
       if (
@@ -48,6 +50,7 @@ class Chat extends Component {
       )
         history.push('/');
     }
+
     if (nextProps.error && !error) {
       console.log('error');
       if (
@@ -85,7 +88,8 @@ class Chat extends Component {
 const mapStateToProps = state => ({
   connect: state.ws.connect,
   start: state.ws.start,
-  error: state.ws.error
+  error: state.ws.error,
+  params: state.params
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -59,7 +59,9 @@ class Messages extends Component {
 
       websocket.send(
         JSON.stringify({
-          body,
+          payload: {
+            body
+          },
           type: MESSAGE
         })
       );
