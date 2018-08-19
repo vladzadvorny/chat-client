@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Head } from 'react-static';
 import Textarea from 'react-textarea-autosize';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
@@ -8,6 +9,7 @@ import './Messages.scss';
 import formatTime from '../utils/formatTime';
 import { stopTyping } from '../connectors/actions';
 import { MESSAGE, TYPING } from '../utils/wsTypes';
+import { siteName } from '../utils/config';
 
 class Messages extends Component {
   state = {
@@ -145,6 +147,9 @@ class Messages extends Component {
 
     return (
       <Fragment>
+        <Head>
+          <title>{`Чат собеседником — ${siteName}`}</title>
+        </Head>
         <div
           className="messages-box"
           role="presentation"

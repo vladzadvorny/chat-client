@@ -31,10 +31,6 @@ export default {
         }))
       },
       {
-        path: '/chat',
-        component: 'src/pages/Chat'
-      },
-      {
         path: '/about',
         component: 'src/pages/About',
         getData: () => ({

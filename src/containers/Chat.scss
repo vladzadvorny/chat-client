@@ -5,7 +5,8 @@
   box-shadow: 0px 0px 20px 0px rgba($blackColor, 0.05);
 
   flex-direction: column;
-  flex: 1;
+  flex-grow: 1;
+  display: flex;
 
   h2 {
     margin-top: 0;

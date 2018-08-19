@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Head } from 'react-static';
 
 import './Looking.scss';
+import { siteName } from '../utils/config';
 
 class Looking extends Component {
   render() {
@@ -9,6 +11,9 @@ class Looking extends Component {
 
     return (
       <div className="looking">
+        <Head>
+          <title>{`Поиск собеседника — ${siteName}`}</title>
+        </Head>
         <div className="box">
           <h2>Поиск собеседника</h2>
           <div className="loader" />
