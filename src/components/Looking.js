@@ -7,7 +7,7 @@ import { siteName } from '../utils/config';
 
 class Looking extends Component {
   render() {
-    const { counts } = this.props;
+    const { counts, onStop } = this.props;
 
     return (
       <div className="looking">
@@ -18,9 +18,12 @@ class Looking extends Component {
           <h2>Поиск собеседника</h2>
           <div className="loader" />
           <div className="stats">
-            <span>Сейчас общаются: {counts[0]}</span>
-            <span>В поиске: {counts[1]}</span>
+            <span>Сейчас общаются: {!counts[0] ? '∞' : counts[0]}</span>
+            <span>В поиске: {!counts[1] ? '∞' : counts[1]}</span>
           </div>
+          <button type="button" onClick={onStop}>
+            Отмена
+          </button>
         </div>
         <style>
           {`

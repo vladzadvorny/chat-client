@@ -1,0 +1,17 @@
+button {
+  background-color: $primaryColor;
+  background: linear-gradient(lighten($primaryColor, 20), $primaryColor);
+  color: $whiteColor;
+  font-size: 1em;
+  height: 34px;
+  border: 0;
+  padding: 0 $freeSpace;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(lighten($primaryColor, 15), $primaryColor);
+  }
+  &:active {
+    background: linear-gradient($primaryColor, lighten($primaryColor, 10));
+  }
+}

@@ -70,11 +70,15 @@ class Chat extends Component {
   }
 
   render() {
-    const { start } = this.props;
+    const { start, onStop } = this.props;
 
     return (
       <div className="chat container">
-        {start ? <Messages websocket={this.websocket} /> : <Looking />}
+        {start ? (
+          <Messages websocket={this.websocket} />
+        ) : (
+          <Looking onStop={onStop} />
+        )}
       </div>
     );
   }

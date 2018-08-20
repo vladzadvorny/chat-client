@@ -28,7 +28,7 @@ class Home extends Component {
         </Head>
 
         {startChat ? (
-          <Chat />
+          <Chat onStop={() => this.setState({ startChat: false })} />
         ) : (
           <Fragment>
             <Menu onStart={() => this.setState({ startChat: true })} />
