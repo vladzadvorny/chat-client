@@ -72,6 +72,22 @@
                 background-color: lighten($primaryColor, 42);
                 border-color: lighten($primaryColor, 20);
               }
+
+              // &.disable {
+              //   background-color: lighten($blackColor, 79);
+              //   border-color: lighten($blackColor, 70);
+              //   color: lighten($blackColor, 70);
+              //   cursor: auto;
+              // }
+            }
+
+            &.disable {
+              li {
+                background-color: lighten($blackColor, 79);
+                border-color: lighten($blackColor, 70);
+                color: lighten($blackColor, 70);
+                cursor: auto;
+              }
             }
           }
         }

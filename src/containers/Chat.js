@@ -28,12 +28,7 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
-    const {
-      connect,
-      // history,
-      error,
-      params
-    } = this.props;
+    const { connect, error, params } = this.props;
     if (nextProps.connect && !connect) {
       console.log('connect');
 

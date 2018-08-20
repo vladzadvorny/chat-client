@@ -30,7 +30,7 @@ class Menu extends Component {
               {/* sex */}
               <div className="item">
                 <h3>Кто ты?</h3>
-                <ul>
+                <ul className={findSex === 'unknown' ? 'disable' : ''}>
                   <li
                     role="presentation"
                     className={sex === 'male' ? 'active' : ''}
@@ -51,7 +51,7 @@ class Menu extends Component {
               {/* age */}
               <div className="item">
                 <h3>Сколько тебе лет?</h3>
-                <ul>
+                <ul className={findAge[0] === 'unknown' ? 'disable' : ''}>
                   <li
                     role="presentation"
                     className={age === '<18' ? 'active' : ''}

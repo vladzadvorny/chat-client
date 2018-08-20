@@ -15,9 +15,21 @@ const initialState = {
 const onChangeFindAge = (state, payload) => {
   const { findAge } = state;
 
+  if (payload === 'unknown') {
+    return Object.assign({}, state, { findAge: ['unknown'] });
+  }
+
+  const clone = [...findAge];
+
+  // find and remove unknown
+  const unknownIndex = findAge.indexOf('unknown');
+  if (unknownIndex !== -1) {
+    clone.splice(unknownIndex, 1);
+  }
+
+  // find and disable element
   const index = findAge.indexOf(payload);
   if (index !== -1) {
-    const clone = [...findAge];
     clone.splice(index, 1);
 
     return Object.assign({}, state, {
@@ -25,7 +37,7 @@ const onChangeFindAge = (state, payload) => {
     });
   }
 
-  return Object.assign({}, state, { findAge: [...findAge, payload] });
+  return Object.assign({}, state, { findAge: [...clone, payload] });
 };
 
 export default (state = initialState, action) => {
