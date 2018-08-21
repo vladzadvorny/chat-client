@@ -13,7 +13,7 @@
   box-shadow: $shadow;
 
   .container {
-    justify-content: center;
+    justify-content: space-between;
     flex: 1;
 
     // background-color: lightgreen;
@@ -28,7 +28,23 @@
     //   margin-top: 1px;
     //   cursor: pointer;
     // }
+
+    .left,
+    .right {
+      min-width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .fas {
+        font-size: 1.8em;
+        color: lighten($blackColor, 45);
+        cursor: pointer;
+      }
+    }
+
     .logo {
+      align-self: center;
       display: flex;
       align-items: center;
       margin: 0;

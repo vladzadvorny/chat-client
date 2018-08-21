@@ -5,7 +5,8 @@ import {
   changeSex,
   changeAge,
   changeFindSex,
-  changeFindAge
+  changeFindAge,
+  startChat
 } from '../connectors/actions';
 import './Menu.scss';
 
@@ -13,12 +14,12 @@ class Menu extends Component {
   render() {
     /* eslint-disable no-shadow */
     const {
-      params: { sex, age, findSex, findAge },
+      menu: { sex, age, findSex, findAge },
       changeSex,
       changeAge,
       changeFindSex,
       changeFindAge,
-      onStart
+      startChat
     } = this.props;
     /* eslint-enable */
 
@@ -174,7 +175,7 @@ class Menu extends Component {
           <button
             type="button"
             className="enter-button"
-            onClick={() => onStart()}
+            onClick={() => startChat()}
           >
             Find!
           </button>
@@ -185,14 +186,15 @@ class Menu extends Component {
 }
 
 const mapStateToProps = state => ({
-  params: state.params
+  menu: state.menu
 });
 
 const mapDispatchToProps = {
   changeSex,
   changeAge,
   changeFindSex,
-  changeFindAge
+  changeFindAge,
+  startChat
 };
 
 export default connect(

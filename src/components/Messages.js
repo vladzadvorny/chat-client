@@ -216,9 +216,13 @@ class Messages extends Component {
               this.textarea = ref;
             }}
           />
-          <button type="submit" onClick={() => this.onSend()}>
+          <span
+            className="send-button"
+            role="presentation"
+            onClick={() => this.onSend()}
+          >
             <i className="fas fa-greater-than" />
-          </button>
+          </span>
         </div>
         <div
           ref={el => {

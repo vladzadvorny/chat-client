@@ -28,14 +28,14 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
-    const { connect, error, params } = this.props;
+    const { connect, error, menu } = this.props;
     if (nextProps.connect && !connect) {
       console.log('connect');
 
       this.websocket.send(
         JSON.stringify({
           type: LOOKING,
-          payload: params
+          payload: menu
         })
       );
     }
@@ -70,26 +70,21 @@ class Chat extends Component {
   }
 
   render() {
-    const { start, onStop } = this.props;
+    const { start } = this.props;
 
     return (
       <div className="chat container">
-        {start ? (
-          <Messages websocket={this.websocket} />
-        ) : (
-          <Looking onStop={onStop} />
-        )}
+        {start ? <Messages websocket={this.websocket} /> : <Looking />}
       </div>
     );
   }
 }
 
-// eslint-disable-next-line
 const mapStateToProps = state => ({
   connect: state.ws.connect,
   start: state.ws.start,
   error: state.ws.error,
-  params: state.params
+  menu: state.menu
 });
 
 const mapDispatchToProps = dispatch => ({

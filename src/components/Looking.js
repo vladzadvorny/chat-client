@@ -4,10 +4,13 @@ import { Head } from 'react-static';
 
 import './Looking.scss';
 import { siteName } from '../utils/config';
+import { stopChat } from '../connectors/actions';
 
 class Looking extends Component {
   render() {
-    const { counts, onStop } = this.props;
+    /* eslint-disable no-shadow */
+    const { counts, stopChat } = this.props;
+    /* eslint-enable */
 
     return (
       <div className="looking">
@@ -21,7 +24,7 @@ class Looking extends Component {
             <span>Сейчас общаются: {!counts[0] ? '∞' : counts[0]}</span>
             <span>В поиске: {!counts[1] ? '∞' : counts[1]}</span>
           </div>
-          <button type="button" onClick={onStop}>
+          <button type="button" onClick={() => stopChat()}>
             Отмена
           </button>
         </div>
@@ -42,7 +45,9 @@ const mapStateToProps = state => ({
   counts: state.ws.counts
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  stopChat
+};
 
 export default connect(
   mapStateToProps,

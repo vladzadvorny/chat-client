@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import params from './params';
+import menu from './menu';
 import ws from './ws';
+import app from './app';
 
-export default combineReducers({ params, ws });
+export default combineReducers({ menu, ws, app });

@@ -1,4 +1,4 @@
-import { MESSAGE, TYPING, START, LOOKING } from '../../utils/wsTypes';
+import { MESSAGE, TYPING, START, LOOKING, FINISH } from '../../utils/wsTypes';
 import { TYPING_STOP, RESET } from '../actions';
 
 const initialState = {
@@ -55,6 +55,11 @@ export default (state = initialState, action) => {
     case START:
       return Object.assign({}, state, {
         start: true
+      });
+
+    case FINISH:
+      return Object.assign({}, state, {
+        start: false
       });
 
     case LOOKING:

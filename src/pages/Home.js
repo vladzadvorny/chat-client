@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { withRouter, Head, withRouteData } from 'react-static';
 
 import Footer from '../components/Footer';
@@ -9,13 +10,9 @@ import './Home.scss';
 import { siteName } from '../utils/config';
 
 class Home extends Component {
-  state = {
-    startChat: false
-  };
-
   render() {
-    const { posts } = this.props;
-    const { startChat } = this.state;
+    const { posts, startChat } = this.props;
+    console.log(startChat);
 
     return (
       <Fragment>
@@ -28,10 +25,10 @@ class Home extends Component {
         </Head>
 
         {startChat ? (
-          <Chat onStop={() => this.setState({ startChat: false })} />
+          <Chat />
         ) : (
           <Fragment>
-            <Menu onStart={() => this.setState({ startChat: true })} />
+            <Menu />
             <Footer posts={posts} />
           </Fragment>
         )}
@@ -48,4 +45,17 @@ class Home extends Component {
   }
 }
 
-export default withRouter(withRouteData(Home));
+const mapStateToProps = state => ({
+  startChat: state.app.startChat
+});
+
+const mapDispatchToProps = {};
+
+export default withRouter(
+  withRouteData(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(Home)
+  )
+);

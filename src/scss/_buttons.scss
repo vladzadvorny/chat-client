@@ -14,4 +14,11 @@ button {
   &:active {
     background: linear-gradient($primaryColor, lighten($primaryColor, 10));
   }
+
+  &.inverse {
+    background-color: $whiteColor;
+    background: linear-gradient(lighten($blackColor, 77), $whiteColor);
+    color: $primaryColor;
+    border: 1px solid $primaryColor;
+  }
 }
