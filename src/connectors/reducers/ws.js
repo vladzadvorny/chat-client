@@ -6,6 +6,7 @@ const initialState = {
   typing: false,
   connect: false,
   start: false,
+  finish: false,
   counts: [0, 0],
   error: false
 };
@@ -19,7 +20,8 @@ export default (state = initialState, action) => {
 
     case 'WEBSOCKET:CLOSE':
       return Object.assign({}, state, {
-        connect: false
+        connect: false,
+        start: false
       });
 
     case 'WEBSOCKET:ERROR':
@@ -59,7 +61,7 @@ export default (state = initialState, action) => {
 
     case FINISH:
       return Object.assign({}, state, {
-        start: false
+        finish: true
       });
 
     case LOOKING:

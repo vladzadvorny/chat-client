@@ -21,8 +21,8 @@ class Messages extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener('input', e => this.handleCursorPosition(e), true);
-    document.addEventListener('click', e => this.handleCursorPosition(e), true);
+    document.addEventListener('input', this.handleCursorPosition);
+    document.addEventListener('click', this.handleCursorPosition);
 
     this.scrollToBottom();
   }
@@ -41,6 +41,11 @@ class Messages extends Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('input', this.handleCursorPosition);
+    document.removeEventListener('click', this.handleCursorPosition);
   }
 
   onChange(e) {
@@ -105,12 +110,7 @@ class Messages extends Component {
     }
   }
 
-  scrollToBottom() {
-    // this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
-    this.messagesEnd.scrollIntoView();
-  }
-
-  handleCursorPosition(e) {
+  handleCursorPosition = e => {
     if (e.target.name === 'body') {
       const { selectionStart, selectionEnd } = e.target;
       const self = this;
@@ -123,6 +123,11 @@ class Messages extends Component {
         33
       );
     }
+  };
+
+  scrollToBottom() {
+    // this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    this.messagesEnd.scrollIntoView();
   }
 
   addEmoji(e) {

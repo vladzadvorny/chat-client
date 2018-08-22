@@ -5,15 +5,15 @@ import Messages from '../components/Messages';
 import Looking from '../components/Looking';
 
 import './Chat.scss';
-import { reset } from '../connectors/actions';
+import { RESET, STOP_CHAT } from '../connectors/actions';
 import { LOOKING } from '../utils/wsTypes';
 import { wsUrl } from '../utils/config';
 
 class Chat extends Component {
   componentDidMount() {
     // eslint-disable-next-line no-shadow
-    const { dispatch, reset } = this.props;
-    reset();
+    const { dispatch } = this.props;
+    dispatch({ type: RESET });
 
     this.websocket = new WebSocket(wsUrl);
     const ws = this.websocket;
@@ -24,11 +24,12 @@ class Chat extends Component {
       const { type, payload } = JSON.parse(event.data);
       dispatch({ type, payload });
     };
+    ws.onclose = () => dispatch({ type: 'WEBSOCKET:CLOSE' });
   }
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
-    const { connect, error, menu } = this.props;
+    const { connect, error, menu, finish } = this.props;
     if (nextProps.connect && !connect) {
       console.log('connect');
 
@@ -40,25 +41,40 @@ class Chat extends Component {
       );
     }
 
+    if (nextProps.finish && !finish) {
+      console.log('finish');
+      // eslint-disable-next-line no-shadow
+      const { dispatch } = this.props;
+      if (
+        // eslint-disable-next-line
+        window.alert('Собеседник отключился :(') === undefined
+      ) {
+        dispatch({ type: STOP_CHAT });
+      }
+    }
+
     if (!nextProps.connect && connect) {
       console.log('disconnect');
-      // if (
-      //   // eslint-disable-next-line
-      //   window.alert('Связь оборвалась, либо собеседник отключился.') ===
-      //   undefined
-      // )
-      //   history.push('/');
+      // eslint-disable-next-line no-shadow
+      const { dispatch } = this.props;
+      if (
+        // eslint-disable-next-line
+        window.alert('Разрыв соединения.') === undefined
+      )
+        dispatch({ type: STOP_CHAT });
     }
 
     if (nextProps.error && !error) {
       console.log('error');
-      // if (
-      //   // eslint-disable-next-line
-      //   window.alert(
-      //     'Нет связи с сервером, либо другая ошибка. Попробуй ещё раз.'
-      //   ) === undefined
-      // )
-      //   history.push('/');
+      // eslint-disable-next-line no-shadow
+      const { dispatch } = this.props;
+      if (
+        // eslint-disable-next-line
+        window.alert(
+          'Нет связи с сервером, либо другая ошибка. Попробуй ещё раз.'
+        ) === undefined
+      )
+        dispatch({ type: STOP_CHAT });
     }
   }
 
@@ -83,13 +99,13 @@ class Chat extends Component {
 const mapStateToProps = state => ({
   connect: state.ws.connect,
   start: state.ws.start,
+  finish: state.ws.finish,
   error: state.ws.error,
   menu: state.menu
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatch,
-  reset
+  dispatch
 });
 
 export default connect(

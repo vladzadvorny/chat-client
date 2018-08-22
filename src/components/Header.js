@@ -11,7 +11,7 @@ class Header extends Component {
     /* eslint-disable no-shadow */
     const {
       location: { pathname },
-      startChat,
+      start,
       stopChatAction
     } = this.props;
     /* eslint-enable */
@@ -20,13 +20,13 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           <div className="left">
-            {startChat && (
+            {start && (
               <i
                 className="fas fa-sign-out-alt"
                 onClick={() => {
                   if (
                     // eslint-disable-next-line
-                    window.alert('Вы точно хотите покинуть чат?') === undefined
+                    window.confirm('Вы точно хотите покинуть чат?')
                   )
                     stopChatAction();
                 }}
@@ -49,7 +49,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  startChat: state.app.startChat
+  start: state.ws.start
 });
 
 const mapDispatchToProps = {
