@@ -92,7 +92,7 @@ class Footer extends Component {
             <ul>
               {posts.slice(0, 5).map(post => (
                 <li key={post.slug}>
-                  <Link to={`/блог/${post.slug}/`}>{post.title}</Link>
+                  <Link to={`/blog/${post.slug}/`}>{post.title}</Link>
                 </li>
               ))}
             </ul>

@@ -4,13 +4,15 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import { reloadRoutes } from 'react-static/node';
 import jdown from 'jdown';
 import chokidar from 'chokidar';
+import { slugify } from 'transliter';
+
+import { siteUrl as siteRoot, siteName as title } from './src/utils/config';
 
 chokidar.watch('content').on('all', () => reloadRoutes());
 
 export default {
-  getSiteData: () => ({
-    title: 'React Static'
-  }),
+  siteRoot,
+  getSiteData: () => ({ title }),
   // eslint-disable-next-line
   getRoutes: async () => {
     const { posts, about } = await jdown('content');
@@ -20,10 +22,12 @@ export default {
         path: '/',
         component: 'src/pages/Home',
         getData: () => ({
-          posts
+          posts: posts.map(post =>
+            Object.assign({}, post, { slug: slugify(post.title) })
+          )
         }),
         children: posts.map(post => ({
-          path: `/блог/${post.slug}`,
+          path: `/blog/${slugify(post.title)}`,
           component: 'src/pages/Post',
           getData: () => ({
             post
