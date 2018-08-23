@@ -2,7 +2,7 @@ import { START_CHAT, STOP_CHAT, TOGGLE_MUTE } from '../actions';
 
 const initialState = {
   startChat: false, // or chat,
-  mute: !false
+  mute: false
 };
 
 export default (state = initialState, action) => {
