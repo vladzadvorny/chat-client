@@ -9,3 +9,7 @@ export const siteUrl = isProduction
 export const wsUrl = isProduction
   ? 'wss://api.xn----7sbb4afrfacg5c4c7b.xn--p1ai'
   : 'ws://localhost:3001';
+
+export const uploadUrl = isProduction
+  ? 'https://api.xn----7sbb4afrfacg5c4c7b.xn--p1ai/upload'
+  : 'http://localhost:3001/upload';

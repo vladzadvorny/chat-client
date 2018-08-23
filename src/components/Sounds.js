@@ -8,12 +8,16 @@ const sounds = {
 };
 
 class Sounds extends Component {
-  state = {
-    file: sounds.start,
-    position: 0,
-    volume: 100,
-    playStatus: Sound.status.STOPPED
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      file: sounds.start,
+      position: 0,
+      volume: 100,
+      playStatus: Sound.status.STOPPED
+    };
+  }
 
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow

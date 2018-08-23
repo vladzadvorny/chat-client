@@ -29,6 +29,7 @@
     "ssh-deploy-release": "^2.1.9"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "emoji-mart": "^2.7.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

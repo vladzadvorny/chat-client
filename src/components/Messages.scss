@@ -146,11 +146,12 @@
     font-family: 'Roboto', sans-serif;
   }
 
-  .send-button {
+  .send-button,
+  .custom-file-upload {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 36px;
+    width: 40px;
     font-size: 1.4em;
     border: 0;
     cursor: pointer;
@@ -162,6 +163,15 @@
 
     i {
       color: lighten($primaryColor, 10);
+    }
+  }
+
+  .custom-file-upload {
+    overflow: hidden;
+    position: relative;
+
+    input[type='file'] {
+      display: none;
     }
   }
 }

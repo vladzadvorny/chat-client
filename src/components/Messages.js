@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Head } from 'react-static';
 import Textarea from 'react-textarea-autosize';
+import axios from 'axios';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
@@ -9,7 +10,7 @@ import './Messages.scss';
 import formatTime from '../utils/formatTime';
 import { stopTyping } from '../connectors/actions';
 import { MESSAGE, TYPING } from '../utils/wsTypes';
-import { siteName } from '../utils/config';
+import { siteName, uploadUrl } from '../utils/config';
 
 class Messages extends Component {
   state = {
@@ -125,6 +126,15 @@ class Messages extends Component {
     }
   };
 
+  fileChangedHandler = event => {
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    axios.post(uploadUrl, formData);
+  };
+
   scrollToBottom() {
     // this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
     this.messagesEnd.scrollIntoView();
@@ -221,13 +231,26 @@ class Messages extends Component {
               this.textarea = ref;
             }}
           />
-          <span
-            className="send-button"
-            role="presentation"
-            onClick={() => this.onSend()}
-          >
-            <i className="fas fa-greater-than" />
-          </span>
+          {body ? (
+            <span
+              className="send-button"
+              role="presentation"
+              onClick={() => this.onSend()}
+            >
+              <i className="fas fa-greater-than" />
+            </span>
+          ) : (
+            <label htmlFor="file" className="custom-file-upload">
+              <input
+                type="file"
+                name="file"
+                id="file"
+                required
+                onChange={this.fileChangedHandler}
+              />
+              <i className="fas fa-camera" />
+            </label>
+          )}
         </div>
         <div
           ref={el => {

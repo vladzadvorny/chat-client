@@ -177,7 +177,7 @@ class Menu extends Component {
             className="enter-button"
             onClick={() => startChat()}
           >
-            Find!
+            Найти!
           </button>
         </div>
       </div>
