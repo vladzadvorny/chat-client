@@ -15,22 +15,24 @@ export default {
   getSiteData: () => ({ title }),
   // eslint-disable-next-line
   getRoutes: async () => {
-    const { posts, about } = await jdown('content');
+    const { posts: _posts, about } = await jdown('content');
+    const posts = _posts.map(post =>
+      Object.assign({}, post, { slug: slugify(post.title) })
+    );
 
     const routes = [
       {
         path: '/',
         component: 'src/pages/Home',
         getData: () => ({
-          posts: posts.map(post =>
-            Object.assign({}, post, { slug: slugify(post.title) })
-          )
+          posts
         }),
         children: posts.map(post => ({
           path: `/blog/${slugify(post.title)}`,
           component: 'src/pages/Post',
           getData: () => ({
-            post
+            post,
+            posts
           })
         }))
       },
