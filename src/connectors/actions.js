@@ -47,3 +47,8 @@ export const STOP_CHAT = 'STOP_CHAT';
 export const stopChat = () => ({
   type: STOP_CHAT
 });
+
+export const TOGGLE_MUTE = 'TOGGLE_MUTE';
+export const toggleMute = () => ({
+  type: TOGGLE_MUTE
+});

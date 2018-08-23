@@ -37,9 +37,13 @@
       justify-content: center;
 
       .fas {
-        font-size: 1.8em;
+        font-size: 1.5em;
         color: lighten($blackColor, 45);
         cursor: pointer;
+
+        &.fa-volume-up {
+          color: $primaryColor;
+        }
       }
     }
 

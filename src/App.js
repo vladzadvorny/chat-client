@@ -8,6 +8,7 @@ import './App.scss';
 import store from './connectors/store';
 
 import Header from './components/Header';
+import Sounds from './components/Sounds';
 
 const App = () => (
   <Provider store={store}>
@@ -17,6 +18,7 @@ const App = () => (
         <div className="main">
           <Routes />
         </div>
+        <Sounds />
       </Fragment>
     </Router>
   </Provider>

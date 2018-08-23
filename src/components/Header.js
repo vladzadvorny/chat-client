@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-static';
 
 import './Header.scss';
 import { siteName, siteUrl } from '../utils/config';
-import { stopChat } from '../connectors/actions';
+import { stopChat, toggleMute } from '../connectors/actions';
 
 class Header extends Component {
   render() {
@@ -12,7 +12,9 @@ class Header extends Component {
     const {
       location: { pathname },
       start,
-      stopChatAction
+      mute,
+      stopChatAction,
+      toggleMuteAction
     } = this.props;
     /* eslint-enable */
 
@@ -41,7 +43,21 @@ class Header extends Component {
               {siteName}
             </Link>
           )}
-          <div className="right" />
+          <div className="right">
+            {!mute ? (
+              <i
+                className="fas fa-volume-up"
+                role="presentation"
+                onClick={() => toggleMuteAction()}
+              />
+            ) : (
+              <i
+                className="fas fa-volume-off"
+                role="presentation"
+                onClick={() => toggleMuteAction()}
+              />
+            )}
+          </div>
         </div>
       </header>
     );
@@ -49,11 +65,13 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  start: state.ws.start
+  start: state.ws.start,
+  mute: state.app.mute
 });
 
 const mapDispatchToProps = {
-  stopChatAction: stopChat
+  stopChatAction: stopChat,
+  toggleMuteAction: toggleMute
 };
 
 export default withRouter(
