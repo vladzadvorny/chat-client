@@ -10,7 +10,7 @@ import './Messages.scss';
 import formatTime from '../utils/formatTime';
 import { stopTyping } from '../connectors/actions';
 import { MESSAGE, TYPING } from '../utils/wsTypes';
-import { siteName, uploadUrl } from '../utils/config';
+import { siteName, apiUrl } from '../utils/config';
 
 class Messages extends Component {
   state = {
@@ -126,13 +126,32 @@ class Messages extends Component {
     }
   };
 
-  fileChangedHandler = event => {
+  fileChangedHandler = async event => {
+    const { chatId, websocket } = this.props;
     const file = event.target.files[0];
 
     const formData = new FormData();
+    formData.append('chatId', chatId);
     formData.append('file', file);
 
-    axios.post(uploadUrl, formData);
+    try {
+      const { data } = await axios.post(`${apiUrl}/upload`, formData);
+      if (data.error) {
+        // eslint-disable-next-line
+        window.alert(data.error);
+      } else {
+        websocket.send(
+          JSON.stringify({
+            payload: {
+              img: `${apiUrl}/uploads/${data.filePath}`
+            },
+            type: MESSAGE
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   scrollToBottom() {
@@ -179,7 +198,13 @@ class Messages extends Component {
                 key={item.id}
               >
                 <div className="speech-bubble">
-                  <div className="message-body">{item.body}</div>
+                  {item.body && <div className="message-body">{item.body}</div>}
+                  {item.img && (
+                    <div className="message-img">
+                      <img alt="" src={item.img} />
+                    </div>
+                  )}
+
                   <div className="message-date">
                     {formatTime(new Date(item.date))}
                   </div>
@@ -289,7 +314,8 @@ class Messages extends Component {
 const mapStateToProps = state => ({
   params: state.params,
   messages: state.ws.messages,
-  typing: state.ws.typing
+  typing: state.ws.typing,
+  chatId: state.ws.chatId
 });
 
 const mapDispatchToProps = {

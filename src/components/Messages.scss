@@ -53,6 +53,16 @@
         align-items: center;
       }
 
+      .message-img {
+        display: flex;
+        align-items: center;
+
+        img {
+          max-width: 100%;
+          max-height: 400px;
+        }
+      }
+
       .message-date {
         color: lighten($primaryColor, 4);
         font-size: 0.9em;

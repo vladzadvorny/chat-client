@@ -8,6 +8,7 @@ const initialState = {
   start: false,
   finish: false,
   counts: [0, 0],
+  chatId: '',
   error: false
 };
 
@@ -56,7 +57,8 @@ export default (state = initialState, action) => {
 
     case START:
       return Object.assign({}, state, {
-        start: true
+        start: true,
+        chatId: action.payload.chatId
       });
 
     case FINISH:
