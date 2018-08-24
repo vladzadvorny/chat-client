@@ -129,6 +129,7 @@ class Messages extends Component {
   fileChangedHandler = async event => {
     const { chatId, websocket } = this.props;
     const file = event.target.files[0];
+    console.log(file);
 
     const formData = new FormData();
     formData.append('chatId', chatId);
@@ -282,23 +283,24 @@ class Messages extends Component {
             this.messagesEnd = el;
           }}
         />
-        {picker && (
-          <Picker
-            style={{
-              position: 'fixed',
-              bottom: '4px',
-              zIndex: 7777,
-              borderRadius: 0,
-              border: 0
-            }}
-            // set="apple"
-            native
-            showPreview={false}
-            onSelect={a => this.addEmoji(a)}
-            sheetSize={32}
-            emojiSize={20}
-          />
-        )}
+
+        <Picker
+          style={{
+            position: 'fixed',
+            bottom: '4px',
+            zIndex: 7777,
+            borderRadius: 0,
+            border: 0,
+            display: picker ? 'block' : 'none'
+          }}
+          // set="apple"
+          native
+          showPreview={false}
+          onSelect={a => this.addEmoji(a)}
+          sheetSize={32}
+          emojiSize={20}
+        />
+
         <style>
           {`
             body {
