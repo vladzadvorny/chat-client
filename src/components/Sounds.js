@@ -22,6 +22,9 @@ class Sounds extends Component {
   componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line no-shadow
     const { start, messages, mute } = this.props;
+    this.setState({
+      playStatus: Sound.status.STOPPED
+    });
 
     if (!mute && nextProps.start && !start) {
       this.setState({
@@ -31,6 +34,7 @@ class Sounds extends Component {
     }
 
     if (!mute && nextProps.messages.length > messages.length) {
+      console.log(nextProps.messages.length, messages.length);
       const first = nextProps.messages[0];
 
       if (!first.my) {
