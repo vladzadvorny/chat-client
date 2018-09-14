@@ -1,4 +1,4 @@
-// params
+// menu
 export const CHANGE_SEX = 'CHANGE_SEX';
 export const CHANGE_AGE = 'CHANGE_AGE';
 export const CHANGE_FINDSEX = 'CHANGE_FINDSEX';
